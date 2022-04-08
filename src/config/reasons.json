@@ -1,0 +1,26 @@
+{
+    "desordem": {
+        "name": "Discódia em bate-papo",
+        "emoji": "🔥",
+        "type": "mute",
+        "time": 60000
+    },
+    "permanent-silencing": {
+        "name": "Silenciamento permanente",
+        "emoji": "🚫",
+        "type": "mute",
+        "time": 0
+    },
+    "temp-ban": {
+        "name": "Banimento temporário",
+        "emoji": "😎",
+        "type": "ban",
+        "time": 8400000
+    },
+    "permanent-ban": {
+        "name": "Banimento permanente",
+        "emoji": "<:beluga:952389097320771654>",
+        "type": "ban",
+        "time": 0
+    }
+}
