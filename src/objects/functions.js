@@ -3,28 +3,28 @@ module.exports = class Functions {
         this.client = client;
     }
 
-    async getFormatedTime(time) {
+    async getFormattedTime(time) {
         try {
             time = parseInt(time);
             if (!time) return undefined;
-            let formated = [];
+            let formatted = [];
             let days = Math.floor(time / (60 * 60 * 24 * 1000));
-            if (days > 0) { time = time - (days * (60 * 60 * 24 * 1000)); if (days == 1) { formated.push(`${days} dia`) } else { formated.push(`${days} dias`) }; };
+            if (days > 0) { time = time - (days * (60 * 60 * 24 * 1000)); if (days == 1) { formatted.push(`${days} dia`) } else { formatted.push(`${days} dias`) }; };
             let hours = Math.floor(time / (60 * 60 * 1000));
-            if (hours > 0) { time = time - (hours * (60 * 60 * 1000)); if (hours == 1) { formated.push(`${hours} hora`) } else { formated.push(`${hours} horas`) }; };
+            if (hours > 0) { time = time - (hours * (60 * 60 * 1000)); if (hours == 1) { formatted.push(`${hours} hora`) } else { formatted.push(`${hours} horas`) }; };
             let minutes = Math.floor(time / (60 * 1000));
-            if (minutes > 0) { time = time - (minutes * (60 * 1000)); if (minutes == 1) { formated.push(`${minutes} minuto`) } else { formated.push(`${minutes} minutos`) }; };
+            if (minutes > 0) { time = time - (minutes * (60 * 1000)); if (minutes == 1) { formatted.push(`${minutes} minuto`) } else { formatted.push(`${minutes} minutos`) }; };
             let seconds = Math.floor(time / 1000);
-            if (seconds > 0) { time = time - (seconds * (60 * 1000)); if (seconds == 1) { formated.push(`${seconds} segundo`) } else { formated.push(`${seconds} segundos`) }; };
-            let returnString = formated.join(", ");
-            if (formated.length > 1) {
-                let last = formated.pop();
-                returnString = formated.join(", ") + " e " + last;
+            if (seconds > 0) { time = time - (seconds * (60 * 1000)); if (seconds == 1) { formatted.push(`${seconds} segundo`) } else { formatted.push(`${seconds} segundos`) }; };
+            let returnString = formatted.join(", ");
+            if (formatted.length > 1) {
+                let last = formatted.pop();
+                returnString = formatted.join(", ") + " e " + last;
             }
             return returnString;
         } catch (error) {
             console.log(error);
-            console.log(`\x1b[91m[Functions] Ocorreu um erro ao executar a função getFormatedTime\x1b[0m`);
+            console.log(`\x1b[91m[Functions] Ocorreu um erro ao executar a função getFormattedTime\x1b[0m`);
         }
     }
 

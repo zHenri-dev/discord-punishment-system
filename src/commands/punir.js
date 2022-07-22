@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, SelectMenuBuilder } = require("discord.js");
 const moment = require("moment"); moment.locale("pt-br");
 
 module.exports = class Punir {
@@ -15,7 +15,7 @@ module.exports = class Punir {
             message.reply({ content: "Você precisa mencionar o membro que deseja punir juntamente ao uso do comando! A seguir você poderá escolher um motivo entre os listados." }).then(msg => { setTimeout(() => { msg.delete().catch(() => { }); message.delete().catch(() => { }); }, 15000); })
             return;
         }
-        let punishingEmbed = new MessageEmbed()
+        let punishingEmbed = new EmbedBuilder()
             .setAuthor({ name: `${message.author.username}`, iconURL: message.author.displayAvatarURL() })
             .setDescription(`\`\`\`Aplicando punição em: ${member.user.tag}\nO membro está no servidor desde ${moment(member.joinedAt).format('LLLL')}.\`\`\``)
             .setFooter({ text: "Este comando tem um tempo de duração de 60 segundos para que você escolha o motivo." })
@@ -25,7 +25,7 @@ module.exports = class Punir {
             let optionsObject = this.client.reasons[reason];
             let duration;
             if (!optionsObject.time || optionsObject.time <= 0) duration = "Permanente";
-            else duration = await this.client.functions.getFormatedTime(optionsObject.time);
+            else duration = await this.client.functions.getFormattedTime(optionsObject.time);
             options.push({
                 label: `${optionsObject.name}`,
                 emoji: optionsObject.emoji,
@@ -34,8 +34,8 @@ module.exports = class Punir {
             });
         }
 
-        const row = new MessageActionRow().addComponents(
-            new MessageSelectMenu()
+        const row = new ActionRowBuilder().addComponents(
+            new SelectMenuBuilder()
                 .setCustomId(`punishment-select`)
                 .setPlaceholder('Selecione o motivo da punição...')
                 .addOptions(options)
@@ -49,7 +49,7 @@ module.exports = class Punir {
             let reasonName = i.values[0];
             let reason = this.client.reasons[reasonName];
             if (!reason) return collector.stop();
-            let proofEmbed = new MessageEmbed()
+            let proofEmbed = new EmbedBuilder()
                 .setDescription(`\`👮‍♂️\` É necessário que **${message.author.username}** (Você!) envie aqui provas que serão anexadas juntamente a punição ao membro!`);
             let proofMessage = await message.channel.send({ embeds: [proofEmbed] }).catch(() => { });
             const proofFilter = m => m.author.id == message.author.id;
@@ -66,7 +66,7 @@ module.exports = class Punir {
                 }
                 if (reason.type == "ban") member.ban({ reason: `Autor: ${message.author.tag} (ID: ${message.author.id}) | Motivo enviado pelo autor: ${collectMessage.content} | Data de aplicação em ${moment().format("LLL")}` }).catch(() => { });
                 else member.roles.add(this.client.config.punishmentRoleId).catch(() => { });
-                let logEmbed = new MessageEmbed()
+                let logEmbed = new EmbedBuilder()
                     .setAuthor({ name: "Registro de punição!", iconURL: "https://i.imgur.com/mxcuRFR.png" })
                     .setDescription(`Estado atual da punição: \`${status}\`;\n\nUm membro foi punido do servidor de discord recentemente, confira abaixo\nalgumas informações sobre a punição, dentre elas quem aplicou, motivo e membro\npunido.\n\n\`\`\`⠀⠀ID: ${member.id}\n\n⠀Membro: ${member.user.tag}\n⠀Motivo da punição:  ${reason.name}\n⠀Punição aplicada por: ${message.author.tag}${proof}\`\`\``)
                     .setFooter({ text: `A punição foi aplicada em ${moment().format("LLL")}` })
@@ -85,7 +85,7 @@ module.exports = class Punir {
                     createdAt: new Date().getTime(),
                     performed: false
                 });
-                let successEmbed = new MessageEmbed()
+                let successEmbed = new EmbedBuilder()
                     .setAuthor({ name: `${message.author.username}`, iconURL: message.author.displayAvatarURL() })
                     .setDescription(`O membro \`${member.user.username}\` foi punido pelo motivo \`${reason.name}\`.\n[Clique aqui para mais informações sobre a punição.](https://discord.com/channels/${message.guild.id}/${this.client.config.logChannelId}/${logMessage.id})`)
                     .setFooter({ text: "Qualquer administrador ou superior pode remover quaisquer punições pelo comando despunir." })

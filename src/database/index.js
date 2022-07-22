@@ -4,7 +4,7 @@ const config = require("../config/config.json");
 module.exports = {
     connectToDatabase() {
         let startedAt = performance.now();
-        connect(config.connect_string).then(() => {
+        connect(config.databaseString).then(() => {
             let finishedAt = performance.now();
             let time = (parseFloat(finishedAt - startedAt).toFixed(2)).replace(".00", "");
             console.log(`\x1b[36m[Database] Conexão com a database efetuada em ${time}ms \x1b[0m`)

@@ -1,7 +1,7 @@
 {
     "token": "",
     "defaultPrefix": "&",
-    "connect_string": "",
+    "databaseString": "",
     "punishmentRoleId": "904790600715501618",
-    "logChannelId": "958538345330401341"
+    "logChannelId": "999889793800491170"
 }

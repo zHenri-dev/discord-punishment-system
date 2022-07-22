@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const moment = require("moment");
 moment.locale("pt-br");
 
@@ -43,7 +43,7 @@ module.exports = class Hist {
 
         if (userPunishments.length - 2 > 0) hist += `\n+${userPunishments.length - 2} outras punições aplicadas anteriormente.`
 
-        let histEmbed = new MessageEmbed()
+        let histEmbed = new EmbedBuilder()
             .setAuthor({ name: `${message.author.username}`, iconURL: message.author.displayAvatarURL() })
             .setDescription(`A seguir está todo o histórico de punições do membro: \`${member.user.tag}\`\n\n<:noban:958562167077077012> **PUNIÇÕES:**\n${hist}\n⠀`)
             .setFooter({ text: "Todas as informações que são coletadas são salvas em um banco de dados privado, nenhuma dessas informações podem ser alteradas por terceiros.", iconURL: "https://i.imgur.com/A2pSNFN.png" })

@@ -1,4 +1,4 @@
-const { Client, Collection, MessageEmbed } = require("discord.js");
+const { Client, Collection, Partials, GatewayIntentBits } = require("discord.js");
 const { readdirSync } = require("fs");
 const { connectToDatabase } = require("./database/index.js");
 const Functions = require("./objects/functions.js");
@@ -75,8 +75,16 @@ class PunishmentClient extends Client {
 }
 
 const PunishmentBot = new PunishmentClient({
-    intents: 32767,
-    partials: ["CHANNEL"]
+    intents: [
+        GatewayIntentBits.GuildBans,
+        GatewayIntentBits.GuildEmojisAndStickers,
+        GatewayIntentBits.GuildIntegrations,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.MessageContent,
+    ],
+    partials: [Partials.Channel]
 });
 
 PunishmentBot.start();
